@@ -14,6 +14,5 @@ setup(
     ],
     setup_requires=['cffi>=1.9.1'],
     cffi_modules=['build_blurhash.py:ffibuilder'],
-    test_suite='tests',
-    scripts=['build_blurhash.py']
+    test_suite='tests'
 )
