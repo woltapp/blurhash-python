@@ -5,7 +5,7 @@ Installation
 ------------
 Install blurhash with pip
 ```
-$ pip install -e /path/to/blurhash-python
+$ pip install blurhash-python
 ```
 
 Usage
