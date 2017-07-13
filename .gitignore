@@ -102,3 +102,7 @@ ENV/
 
 # generic text editor
 *~
+
+# sublime text
+*.sublime-workspace
+*.sublime-project
