@@ -22,13 +22,13 @@ jobs:
           name: compile wheels
           command: |
             for PYBIN in /opt/python/cp27-cp27mu/bin; do
-              "${PYBIN}/python" setup.py bdist_wheel
+              "${PYBIN}/pip" wheel -w wheelhouse/
             done
 
       - run:
           name: build external libraries into wheels
           command: |
-            for wheel in dist/*.whl; do
+            for wheel in wheelhouse/*.whl; do
               auditwheel repair "$wheel"
             done
 
