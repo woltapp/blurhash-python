@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Create source distribution
           command: |
-            ./setup.py sdist
+            /opt/python/cp36-cp36m/bin/python setup.py sdist
 
       - run:
           name: Copy artefacts
