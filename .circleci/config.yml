@@ -36,9 +36,8 @@ jobs:
       - run:
           name: install packages and test
           command: |
-            cd ..
             for PYBIN in /opt/python/cp27-cp27mu/bin; do
-              "${PYBIN}/pip" install blurhash-python --no-index -f blurhash-python/wheelhouse
+              "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/pytest" --pyargs blurhash
             done
 
