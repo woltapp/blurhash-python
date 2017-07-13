@@ -14,6 +14,11 @@ jobs:
       - checkout
 
       - run:
+          name: install libffi
+          command: |
+            yum install -y libffi libffi-devel
+
+      - run:
           name: compile wheels
           command: |
             for PYBIN in /opt/python/cp27-*/bin; do
