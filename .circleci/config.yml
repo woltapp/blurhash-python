@@ -1,0 +1,36 @@
+# Python CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-python/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      - image: quay.io/pypa/manylinux1_x86_64
+
+    working_directory: ~/blurhash
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - blurhash-venv
+
+      - run:
+          name: setup virtualenv
+          command: |
+            python3.6 -m venv venv
+            . venv/bin/activate
+
+      - save_cache:
+          paths:
+            - ./venv
+          key: blurhash-venv
+
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python setup.py test
