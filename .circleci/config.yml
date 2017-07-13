@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Create source distribution
           command: |
-            python setup.py sdist
+            ./setup.py sdist
 
       - run:
           name: Copy artefacts
