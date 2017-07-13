@@ -17,6 +17,10 @@ class BlurhashEncodeTestCase(TestCase):
         result = encode('pic2.png', 4, 3)
         self.assertEqual(result, 'jaMpGa00;;8hjal6hr8yhlmYhkqG')
 
+    def test_encode_black_and_white_picture(self):
+        result = encode('pic2_bw.png', 4, 3)
+        self.assertEqual(result, 'j9Ea2w00;;4hPch4ll8yh4KXh4Cp')
+
     def test_invalid_image(self):
         with self.assertRaises(IOError):
             encode('encode.c', 4, 3)
