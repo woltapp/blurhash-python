@@ -13,24 +13,25 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          keys:
-          - blurhash-venv
+      - run:
+          name: compile wheels
+          command: |
+            for PYBIN in /opt/python/*/bin; do
+              "${PYBIN}/python" setup.py bdist_wheel
+            done
 
       - run:
-          name: setup virtualenv
+          name: build external libraries into wheels
           command: |
-            python3.6 -m venv venv
-            . venv/bin/activate
+            for wheel in dist/*.whl; do
+              auditwheel repair "$whl"
+            done
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: blurhash-venv
-
-      # run tests!
       - run:
-          name: run tests
+          name: install packages and test
           command: |
-            . venv/bin/activate
-            python setup.py test
+            for PYBIN in /opt/python/*/bin; do
+              "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
+              "${PYBIN}/python" setup.py test
+            done
+
