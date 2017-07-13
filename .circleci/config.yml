@@ -22,7 +22,7 @@ jobs:
           name: compile wheels
           command: |
             for PYBIN in /opt/python/cp27-cp27mu/bin; do
-              "${PYBIN}/pip" wheel -w wheelhouse/
+              "${PYBIN}/pip" wheel . -w wheelhouse/
             done
 
       - run:
