@@ -8,7 +8,7 @@ jobs:
     docker:
       - image: quay.io/pypa/manylinux1_x86_64
 
-    working_directory: ~/blurhash
+    working_directory: ~/blurhash-python
 
     steps:
       - checkout
@@ -19,9 +19,10 @@ jobs:
             yum install -y libffi libffi-devel
 
       - run:
-          name: compile wheels
+          name: compile wheels and install dev requirements
           command: |
             for PYBIN in /opt/python/cp27-cp27mu/bin; do
+              "${PYBIN}/pip" install -r dev-requirements.txt
               "${PYBIN}/pip" wheel . -w wheelhouse/
             done
 
@@ -35,8 +36,9 @@ jobs:
       - run:
           name: install packages and test
           command: |
+            cd ..
             for PYBIN in /opt/python/cp27-cp27mu/bin; do
-              "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
-              "${PYBIN}/python" setup.py test
+              "${PYBIN}/pip" install blurhash-python --no-index -f blurhash-python/wheelhouse
+              "${PYBIN}/pytest" --pyargs blurhash
             done
 

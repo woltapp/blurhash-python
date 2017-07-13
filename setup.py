@@ -7,12 +7,12 @@ from setuptools import setup
 setup(
     name='blurhash-python',
     version='0.1.1',
-    packages=['blurhash'],
+    packages=['blurhash', 'blurhash.tests'],
     install_requires=[
         'cffi>=1.9.1',
         'Pillow>=4.1.1'
     ],
-    setup_requires=['cffi>=1.9.1'],
+    setup_requires=['pytest-runner', 'cffi>=1.9.1'],
     cffi_modules=['build_blurhash.py:ffibuilder'],
-    test_suite='tests'
+    tests_require=['pytest']
 )
