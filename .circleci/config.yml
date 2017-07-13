@@ -21,7 +21,7 @@ jobs:
       - run:
           name: compile wheels
           command: |
-            for PYBIN in /opt/python/*mu/bin; do
+            for PYBIN in /opt/python/cp27-cp27mu/bin; do
               "${PYBIN}/python" setup.py bdist_wheel
             done
 
@@ -35,7 +35,7 @@ jobs:
       - run:
           name: install packages and test
           command: |
-            for PYBIN in /opt/python/*mu/bin; do
+            for PYBIN in /opt/python/cp27-cp27mu/bin; do
               "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/python" setup.py test
             done
