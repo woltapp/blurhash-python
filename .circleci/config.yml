@@ -14,30 +14,42 @@ jobs:
       - checkout
 
       - run:
-          name: install libffi
+          name: Install libffi
           command: |
             yum install -y libffi libffi-devel
 
       - run:
-          name: compile wheels and install dev requirements
+          name: Compile wheels and install dev requirements
           command: |
-            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]*}/bin; do
+            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]-*m}/bin; do
               "${PYBIN}/pip" install -r dev-requirements.txt
               "${PYBIN}/pip" wheel . -w wheelhouse/
             done
 
       - run:
-          name: build external libraries into wheels
+          name: Build external libraries into wheels
           command: |
             for wheel in wheelhouse/blurhash_python-*.whl; do
               auditwheel repair "$wheel"
             done
 
       - run:
-          name: install packages and test
+          name: Install packages and test
           command: |
-            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]*}/bin; do
+            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]-*m}/bin; do
               "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/pytest" --pyargs blurhash
             done
 
+      - run:
+          name: Create source distribution
+          command: |
+            python setup.py sdist
+
+      - run:
+          name: Copy artefacts
+          command: |
+            cp wheelhouse/blurhash_python-*-manylinux1_*.whl dist/
+
+      - store_artifacts:
+          path: dist
