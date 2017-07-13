@@ -21,7 +21,7 @@ jobs:
       - run:
           name: compile wheels and install dev requirements
           command: |
-            for PYBIN in /opt/python/{cp27-cp27mu,cp3*}/bin; do
+            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]*}/bin; do
               "${PYBIN}/pip" install -r dev-requirements.txt
               "${PYBIN}/pip" wheel . -w wheelhouse/
             done
@@ -36,7 +36,7 @@ jobs:
       - run:
           name: install packages and test
           command: |
-            for PYBIN in /opt/python/{cp27-cp27mu,cp3*}/bin; do
+            for PYBIN in /opt/python/{cp27-cp27mu,cp3[4-6]*}/bin; do
               "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/pytest" --pyargs blurhash
             done
