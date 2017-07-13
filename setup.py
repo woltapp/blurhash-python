@@ -12,7 +12,10 @@ setup(
         'cffi>=1.9.1',
         'Pillow>=4.1.1'
     ],
-    setup_requires=['pytest-runner', 'cffi>=1.9.1'],
+    setup_requires=[
+        'pytest-runner',
+        'cffi>=1.9.1'
+    ],
     cffi_modules=['build_blurhash.py:ffibuilder'],
     tests_require=['pytest']
 )
