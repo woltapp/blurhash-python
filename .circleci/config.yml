@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yum install -y libffi libffi-devel zlib zlib-devel libjpeg-turbo libjpeg-turbo-devel
+            yum install -y libffi libffi-devel zlib zlib-devel libjpeg libjpeg-devel
 
       - run:
           name: Compile wheels and install dev requirements
