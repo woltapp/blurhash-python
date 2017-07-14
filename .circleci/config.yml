@@ -14,9 +14,9 @@ jobs:
       - checkout
 
       - run:
-          name: Install libffi
+          name: Install dependencies
           command: |
-            yum install -y libffi libffi-devel
+            yum install -y libffi libffi-devel zlib zlib-devel
 
       - run:
           name: Compile wheels and install dev requirements
