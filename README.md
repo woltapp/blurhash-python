@@ -50,6 +50,13 @@ $ python setup.py sdist
 See [Python Packaging User Guide](https://packaging.python.org/) for more
 information.
 
+Development
+-----------
+Install package in editable mode
+```
+$ pip install -e .
+```
+
 Tests
 -----
 Run test suite with
@@ -61,5 +68,5 @@ Use `tox` to run test suite against all supported python versions
 Run following commands in virtual environment to test installed package
 ```
 $ pip install -r dev-requirements.txt
-$ pytest --pyargs blurhash
+$ pytest
 ```

@@ -7,7 +7,8 @@ from setuptools import setup
 setup(
     name='blurhash-python',
     version='0.1.1',
-    packages=['blurhash', 'blurhash.tests'],
+    packages=['blurhash'],
+    package_dir={'': 'src'},
     install_requires=[
         'cffi>=1.9.1',
         'Pillow>=4.1.1'
