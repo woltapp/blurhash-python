@@ -101,6 +101,7 @@ jobs:
       - run:
           name: Copy artefacts
           command: |
+            mkdir dist/
             cp wheelhouse/blurhash_python-*-manylinux1_*.whl dist/
 
       - store_artifacts:
