@@ -10,12 +10,12 @@ setup(
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1',
-        'Pillow>=4.1.1'
+        'cffi>=1.9.1,<1.11.0',
+        'Pillow>=4.1.1,<4.3.0'
     ],
     setup_requires=[
         'pytest-runner==2.11.1',
-        'cffi>=1.9.1'
+        'cffi>=1.9.1,<1.11.0'
     ],
     cffi_modules=['build_blurhash.py:ffibuilder'],
     tests_require=['pytest==3.1.3']
