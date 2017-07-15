@@ -14,9 +14,9 @@ setup(
         'Pillow>=4.1.1'
     ],
     setup_requires=[
-        'pytest-runner',
+        'pytest-runner==2.11.1',
         'cffi>=1.9.1'
     ],
     cffi_modules=['build_blurhash.py:ffibuilder'],
-    tests_require=['pytest']
+    tests_require=['pytest==3.1.3']
 )
