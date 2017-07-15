@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Build external libraries into wheels
           command: |
-            for wheel in wheelhouse/*-linux_*.whl; do
+            for wheel in wheelhouse/*-cp*-linux_*.whl; do
               auditwheel repair "$wheel"
             done
 
@@ -86,7 +86,7 @@ jobs:
       - run:
           name: Build external libraries into wheels
           command: |
-            for wheel in wheelhouse/*-linux_*.whl; do
+            for wheel in wheelhouse/*-cp*-linux_*.whl; do
               auditwheel repair "$wheel"
             done
 
