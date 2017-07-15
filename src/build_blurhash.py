@@ -15,7 +15,7 @@ ffibuilder.set_source('blurhash._encode', '''
         return blurHashForPixels(x_components, y_components, width, height,
                                  rgb, bytes_per_row);
     }
-''', sources=['encode.c'])
+''', sources=['src/encode.c'])
 ffibuilder.cdef('''
     const char* create_hash_from_pixels(int x_components, int y_components,
                                        int width, int height, uint8_t* rgb,

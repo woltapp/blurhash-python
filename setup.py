@@ -17,6 +17,6 @@ setup(
         'pytest-runner==2.11.1',
         'cffi>=1.9.1,<1.11.0'
     ],
-    cffi_modules=['build_blurhash.py:ffibuilder'],
+    cffi_modules=['src/build_blurhash.py:ffibuilder'],
     tests_require=['pytest==3.1.3']
 )
