@@ -52,21 +52,19 @@ information.
 
 Development
 -----------
-Install package in editable mode
+Install development requirements and package in editable mode
 ```
+$ pip install -r dev-requirements.txt
 $ pip install -e .
 ```
 
 Tests
 -----
-Run test suite with
+Run test suite with `pytest` in virtual environment
 ```
-$ python setup.py test
+$ pytest
 ```
 Use `tox` to run test suite against all supported python versions
-
-Run following commands in virtual environment to test installed package
 ```
-$ pip install -r dev-requirements.txt
-$ pytest
+$ tox
 ```
