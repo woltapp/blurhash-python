@@ -2,6 +2,7 @@ from __future__ import absolute_import
 from itertools import chain
 
 from PIL import Image
+from six.moves import zip
 
 from ._encode import ffi as _ffi, lib as _lib
 
