@@ -10,7 +10,7 @@ setup(
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1,<1.11.0',
+        'cffi>=1.9.1,<1.12.0',
         'Pillow>=4.1.1,<4.3.0',
         'six>=1.11.0,<1.12.0'
     ],
