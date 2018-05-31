@@ -9,17 +9,17 @@ def test_encode_file():
     with open('tests/pic2.png', 'rb') as image_file:
         result = encode(image_file, 4, 3)
 
-    assert result == b'jaMpGa00;;8hjal6hr8yhlmYhkqG'
+    assert result == b'LNMF%n00%#MwS|WCWEM{R*bbWBbH'
 
 
 def test_encode_with_filename():
     result = encode('tests/pic2.png', 4, 3)
-    assert result == b'jaMpGa00;;8hjal6hr8yhlmYhkqG'
+    assert result == b'LNMF%n00%#MwS|WCWEM{R*bbWBbH'
 
 
 def test_encode_black_and_white_picture():
     result = encode('tests/pic2_bw.png', 4, 3)
-    assert result == b'j9Ea2w00;;4hPch4ll8yh4KXh4Cp'
+    assert result == b'LMIY5?00?bIUofWBWBM{WBofWBj['
 
 
 def test_invalid_image():
@@ -34,7 +34,7 @@ def test_file_does_not_exist():
 
 def test_invalid_x_components():
     with pytest.raises(ValueError):
-        encode('tests/pic2.png', 9, 3)
+        encode('tests/pic2.png', 10, 3)
 
     with pytest.raises(ValueError):
         encode('tests/pic2.png', 0, 3)
@@ -42,7 +42,7 @@ def test_invalid_x_components():
 
 def test_invalid_y_components():
     with pytest.raises(ValueError):
-        encode('tests/pic2.png', 4, 9)
+        encode('tests/pic2.png', 4, 10)
 
     with pytest.raises(ValueError):
         encode('tests/pic2.png', 4, 0)
