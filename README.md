@@ -1,6 +1,8 @@
 blurhash-python
 ===============
 
+This is an encoder for the BlurHash algorithm. To find out more about BlurHash, see https://github.com/woltapp/blurhash.
+
 Installation
 ------------
 Install blurhash with pip
