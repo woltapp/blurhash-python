@@ -9,17 +9,17 @@ def test_encode_file():
     with open('tests/pic2.png', 'rb') as image_file:
         result = encode(image_file, 4, 3)
 
-    assert result == b'LNMF%n00%#MwS|WCWEM{R*bbWBbH'
+    assert result == b'LlMF%n00%#MwS|WCWEM{R*bbWBbH'
 
 
 def test_encode_with_filename():
     result = encode('tests/pic2.png', 4, 3)
-    assert result == b'LNMF%n00%#MwS|WCWEM{R*bbWBbH'
+    assert result == b'LlMF%n00%#MwS|WCWEM{R*bbWBbH'
 
 
 def test_encode_black_and_white_picture():
     result = encode('tests/pic2_bw.png', 4, 3)
-    assert result == b'LMIY5?00?bIUofWBWBM{WBofWBj['
+    assert result == b'LjIY5?00?bIUofWBWBM{WBofWBj['
 
 
 def test_invalid_image():
