@@ -6,18 +6,18 @@ from setuptools import setup
 
 setup(
     name='blurhash-python',
-    version='0.3.0',
+    version='0.3.1',
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1,<1.12.0',
+        'cffi>=1.9.1,<2.0.0',
         'Pillow>=4.1.1,<6.0.0',
-        'six>=1.11.0,<1.12.0'
+        'six>=1.11.0,<2.0.0'
     ],
     setup_requires=[
-        'pytest-runner==3.0.0',
-        'cffi>=1.9.1,<1.12.0'
+        'pytest-runner==4.*',
+        'cffi>=1.9.1,<2.0.0'
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],
-    tests_require=['pytest==3.3.2']
+    tests_require=['pytest==4.*']
 )
