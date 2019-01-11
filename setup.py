@@ -20,16 +20,17 @@ setup(
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1,<1.12.0',
-        'Pillow>=4.1.1,<5.1.0',
-        'six>=1.11.0,<1.12.0'
+        'cffi>=1.9.1,<2.0.0',
+        'Pillow>=4.1.1,<6.0.0',
+        'six>=1.11.0,<2.0.0',
     ],
     setup_requires=[
-        'pytest-runner==3.0.0',
-        'cffi>=1.9.1,<1.12.0'
+        'cffi>=1.9.1,<2.0.0',
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],
-    tests_require=['pytest==3.3.2'],
+    tests_require=[
+        'pytest',
+    ],
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
@@ -39,5 +40,6 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     )
 )
