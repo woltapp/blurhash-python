@@ -25,6 +25,7 @@ setup(
         'six>=1.11.0,<2.0.0',
     ],
     setup_requires=[
+        'pytest-runner',
         'cffi>=1.9.1,<2.0.0',
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],

@@ -56,8 +56,7 @@ Development
 -----------
 Install development requirements and package in editable mode
 ```
-$ pip install -r dev-requirements.txt
-$ pip install -e .
+$ pipenv install
 ```
 
 Tests
