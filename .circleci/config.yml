@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Compile wheels and install dev requirements
           command: |
-            for PYBIN in /opt/python/cp{27,34,35,36}-*/bin; do
+            for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install -r dev-requirements.txt
               "${PYBIN}/pip" wheel . -w wheelhouse/
             done
@@ -36,7 +36,7 @@ jobs:
       - run:
           name: Install packages and test
           command: |
-            for PYBIN in /opt/python/cp{27,34,35,36}-*/bin; do
+            for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/pytest"
             done
@@ -44,14 +44,14 @@ jobs:
       - run:
           name: Create source distribution
           command: |
-            /opt/python/cp36-cp36m/bin/python setup.py sdist
+            /opt/python/cp37-cp37m/bin/python setup.py sdist
 
       - run:
           name: Install and test source distribution
           command: |
-            /opt/python/cp36-cp36m/bin/pip uninstall -y blurhash-python
-            /opt/python/cp36-cp36m/bin/pip install blurhash-python --no-index -f dist
-            /opt/python/cp36-cp36m/bin/pytest
+            /opt/python/cp37-cp37m/bin/pip uninstall -y blurhash-python
+            /opt/python/cp37-cp37m/bin/pip install blurhash-python --no-index -f dist
+            /opt/python/cp37-cp37m/bin/pytest
 
       - run:
           name: Copy artefacts
@@ -78,7 +78,7 @@ jobs:
       - run:
           name: Compile wheels and install dev requirements
           command: |
-            for PYBIN in /opt/python/cp{27,34,35,36}-*/bin; do
+            for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install -r dev-requirements.txt
               "${PYBIN}/pip" wheel . -w wheelhouse/ --build-option -plinux_i686
             done
@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Install packages and test
           command: |
-            for PYBIN in /opt/python/cp{27,34,35,36}-*/bin; do
+            for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
               "${PYBIN}/pytest"
             done
