@@ -22,7 +22,7 @@ jobs:
           name: Compile wheels and install dev requirements
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
-              "${PYBIN}/pip" install -r dev-requirements.txt
+              "${PYBIN}/pip" install tox
               "${PYBIN}/pip" wheel . -w wheelhouse/
             done
 
@@ -79,7 +79,7 @@ jobs:
           name: Compile wheels and install dev requirements
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
-              "${PYBIN}/pip" install -r dev-requirements.txt
+              "${PYBIN}/pip" install tox
               "${PYBIN}/pip" wheel . -w wheelhouse/ --build-option -plinux_i686
             done
 
