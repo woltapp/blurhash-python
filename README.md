@@ -9,6 +9,10 @@ Install blurhash with pip
 ```
 $ pip install blurhash-python
 ```
+or pipenv
+```
+$ pipenv install blurhash-python
+```
 
 Usage
 -----
@@ -29,26 +33,11 @@ hash = blurhash.encode('image.jpg', x_components=4, y_components=3)
 vertical and horizontal AC components in hashed image. Both parameters must
 be `>= 1` and `<= 8`.
 
-Build
------
-Build binary distribution
-```
-$ python setup.py bdist_wheel
-```
-
-Build source distribution
-```
-$ python setup.py sdist
-```
-
-See [Python Packaging User Guide](https://packaging.python.org/) for more
-information.
-
 Development
 -----------
 Install development requirements and package in editable mode
 ```
-$ pipenv install
+$ pipenv install --dev
 ```
 
 Tests
