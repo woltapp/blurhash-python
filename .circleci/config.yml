@@ -11,12 +11,12 @@ jobs:
     working_directory: ~/blurhash-python
 
     steps:
-      - checkout
-
       - run:
           name: Install dependencies
           command: |
-            yum install -y libffi libffi-devel zlib zlib-devel libjpeg libjpeg-devel
+            yum install -y libffi libffi-devel zlib zlib-devel libjpeg libjpeg-devel git
+
+      - checkout
 
       - run:
           name: Compile wheels and install dev requirements
@@ -68,12 +68,12 @@ jobs:
     working_directory: ~/blurhash-python
 
     steps:
-      - checkout
-
       - run:
           name: Install dependencies
           command: |
-            yum install -y libffi.i386 libffi-devel.i386 zlib zlib-devel libjpeg libjpeg-devel
+            yum install -y libffi.i386 libffi-devel.i386 zlib zlib-devel libjpeg libjpeg-devel git
+
+      - checkout
 
       - run:
           name: Compile wheels and install dev requirements
