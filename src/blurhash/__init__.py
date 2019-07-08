@@ -33,4 +33,4 @@ def encode(image_file, x_components, y_components):
     if result == _ffi.NULL:
         raise ValueError('Invalid x_components or y_components')
 
-    return _ffi.string(result)
+    return _ffi.string(result).decode()
