@@ -25,14 +25,6 @@ import blurhash
 
 hash = blurhash.encode('image.jpg', x_components=4, y_components=3)
 ```
-Using blurhash with requests
-```python
-import blurhash
-import requests
-
-image_response = requests.get('http://example.com/image.png', stream=True)
-hash = blurhash.encode(image_response.raw, x_components=4, y_components=3)
-```
 `y_components` and `x_components` parameters adjust the amount of
 vertical and horizontal AC components in hashed image. Both parameters must
 be `>= 1` and `<= 8`.
