@@ -7,8 +7,7 @@ verify_ssl = true
 tox = "*"
 pytest = "*"
 
-[packages]
-blurhash-python = {editable = true,path = "."}
+[dev-packages]
+blurhash-python = {editable = true,extras = ["testing"],path = "."}
 
-[requires]
-python_version = "3.7"
+[packages]

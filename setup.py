@@ -8,6 +8,10 @@ with open('README.md', 'r') as readme_file:
     long_description = readme_file.read()
 
 
+tests_require = [
+    'pytest',
+]
+
 setup(
     name='blurhash-python',
     description='BlurHash encoder implementation for Python',
@@ -31,9 +35,10 @@ setup(
         'setuptools-scm',
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],
-    tests_require=[
-        'pytest',
-    ],
+    tests_require=tests_require,
+    extras_require={
+        'testing': tests_require,
+    },
     classifiers=(
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
