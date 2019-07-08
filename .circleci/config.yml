@@ -23,13 +23,13 @@ jobs:
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install tox pytest
-              "${PYBIN}/pip" wheel . -w wheelhouse/
+              "${PYBIN}/pip" wheel . -w dist/
             done
 
       - run:
           name: Build external libraries into wheels
           command: |
-            for wheel in wheelhouse/*-cp*-linux_*.whl; do
+            for wheel in dist/*-cp*-linux_*.whl; do
               auditwheel repair "$wheel"
             done
 
@@ -37,7 +37,7 @@ jobs:
           name: Install packages and test
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
-              "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
+              "${PYBIN}/pip" install blurhash-python --no-index -f dist
               "${PYBIN}/pytest"
             done
 
@@ -56,7 +56,7 @@ jobs:
       - run:
           name: Copy artefacts
           command: |
-            cp wheelhouse/blurhash_python-*-manylinux1_*.whl dist/
+            cp dist/blurhash_python-*-manylinux1_*.whl dist/
 
       - store_artifacts:
           path: dist
@@ -80,13 +80,13 @@ jobs:
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
               "${PYBIN}/pip" install tox pytest
-              "${PYBIN}/pip" wheel . -w wheelhouse/ --build-option -plinux_i686
+              "${PYBIN}/pip" wheel . -w dist/ --build-option -plinux_i686
             done
 
       - run:
           name: Build external libraries into wheels
           command: |
-            for wheel in wheelhouse/*-cp*-linux_*.whl; do
+            for wheel in dist/*-cp*-linux_*.whl; do
               auditwheel repair "$wheel"
             done
 
@@ -94,7 +94,7 @@ jobs:
           name: Install packages and test
           command: |
             for PYBIN in /opt/python/cp{27,34,35,36,37}-*/bin; do
-              "${PYBIN}/pip" install blurhash-python --no-index -f wheelhouse
+              "${PYBIN}/pip" install blurhash-python --no-index -f dist
               "${PYBIN}/pytest"
             done
 
@@ -102,7 +102,7 @@ jobs:
           name: Copy artefacts
           command: |
             mkdir dist/
-            cp wheelhouse/blurhash_python-*-manylinux1_*.whl dist/
+            cp dist/blurhash_python-*-manylinux1_*.whl dist/
 
       - store_artifacts:
           path: dist
@@ -111,5 +111,11 @@ workflows:
   version: 2
   build:
     jobs:
-      - build_i686
-      - build_x86_64
+      - build_i686:
+          filters:
+            tags:
+              only: /^v.*/
+      - build_x86_64:
+          filters:
+            tags:
+              only: /^v.*/
