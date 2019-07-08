@@ -5,9 +5,10 @@ from PIL import Image
 from six.moves import zip
 
 from ._encode import ffi as _ffi, lib as _lib
+from ._version import version as __version__
 
 
-__all__ = 'encode',
+__all__ = 'encode', '__version__',
 
 
 def encode(image_file, x_components, y_components):
