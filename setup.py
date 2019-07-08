@@ -13,20 +13,19 @@ setup(
     description='BlurHash encoder implementation for Python',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/woltapp/blurhash-python',
+    url='https://blurha.sh',
     version='1.0.0',
     author='Atte Lautanala',
     author_email='atte.lautanala@wolt.com',
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1,<2.0.0',
-        'Pillow>=4.1.1,<6.0.0',
-        'six>=1.11.0,<2.0.0',
+        'cffi>=1.9.1',
+        'Pillow>=4.1.1',
+        'six>=1.11.0',
     ],
     setup_requires=[
-        'pytest-runner',
-        'cffi>=1.9.1,<2.0.0',
+        'cffi>=1.9.1',
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],
     tests_require=[
@@ -42,5 +41,5 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
-    )
+    ),
 )
