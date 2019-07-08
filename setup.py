@@ -14,18 +14,21 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://blurha.sh',
-    version='1.0.0',
+    use_scm_version=dict(
+        write_to='src/blurhash/_version.py',
+    ),
     author='Atte Lautanala',
     author_email='atte.lautanala@wolt.com',
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
-        'cffi>=1.9.1',
-        'Pillow>=4.1.1',
-        'six>=1.11.0',
+        'cffi',
+        'Pillow',
+        'six',
     ],
     setup_requires=[
-        'cffi>=1.9.1',
+        'cffi',
+        'setuptools-scm',
     ],
     cffi_modules=['src/build_blurhash.py:ffibuilder'],
     tests_require=[

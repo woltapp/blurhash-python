@@ -100,12 +100,5 @@ ENV/
 # mypy
 .mypy_cache/
 
-# auditwheel
-/wheelhouse/
-
-# generic text editor
-*~
-
-# sublime text
-*.sublime-workspace
-*.sublime-project
+# setuptools-scm
+/src/blurhash/_version.py
