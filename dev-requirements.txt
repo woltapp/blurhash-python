@@ -1,2 +1,2 @@
-pytest==4.*
-tox==3.*
+pytest
+tox
