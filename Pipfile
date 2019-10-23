@@ -6,8 +6,6 @@ verify_ssl = true
 [dev-packages]
 tox = "*"
 pytest = "*"
-
-[dev-packages]
 blurhash-python = {editable = true,extras = ["testing"],path = "."}
 
 [packages]
