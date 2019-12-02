@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name='blurhash-python',
-    version='0.3.2',
+    version='0.3.3',
     packages=['blurhash'],
     package_dir={'': 'src'},
     install_requires=[
