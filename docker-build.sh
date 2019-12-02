@@ -4,7 +4,7 @@ set -euo pipefail
 function docker-run {
     local workdir="/tmp/blurhash-python"
     docker run --rm -e "PLAT=$1" -v "$(pwd)":"$workdir" -w $workdir \
-        "quay.io/pypa/$1" "${@:2}"
+        -u "$(id -u):$(id -g)" "quay.io/pypa/$1" "${@:2}"
 }
 
 docker-run manylinux1_x86_64 ./build.sh

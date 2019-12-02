@@ -2,10 +2,11 @@
 set -euo pipefail
 
 TMPDIST="$(mktemp -d)"
-trap "rm -rf '$TMPDIST'" EXIT
+USERBASE="$(mktemp -d)"
+trap "rm -rf '$TMPDIST' '$USERBASE'" EXIT
 
 for pybin in /opt/python/cp{27,35,36,37,38}-cp*/bin; do
-    "${pybin}/pip" wheel -w "$TMPDIST" ".[testing]"
+    "${pybin}/pip" wheel --no-cache-dir -w "$TMPDIST" ".[testing]"
 done
 
 for whl in "$TMPDIST"/blurhash_python*.whl; do
@@ -13,7 +14,12 @@ for whl in "$TMPDIST"/blurhash_python*.whl; do
     rm "$whl"
 done
 
+ORIGPATH="$PATH"
+
 for pybin in /opt/python/cp{27,35,36,37,38}-cp*/bin; do
-    "${pybin}/pip" install --no-index -f dist -f "$TMPDIST" "blurhash-python[testing]"
-    "${pybin}/pytest"
+    userbindir="$USERBASE/${pybin#/opt/python/}"
+    export PYTHONUSERBASE="${userbindir%/bin}"
+    export PATH="$ORIGPATH:$userbindir"
+    "${pybin}/pip" install --no-cache-dir --user --no-index -f dist -f "$TMPDIST" "blurhash-python[testing]"
+    "${userbindir}/pytest"
 done
