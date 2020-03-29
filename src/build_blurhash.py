@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 
 import cffi
+import sys
 
 
 ffibuilder = cffi.FFI()
@@ -15,7 +16,7 @@ ffibuilder.set_source('blurhash._encode', '''
         return blurHashForPixels(x_components, y_components, width, height,
                                  rgb, bytes_per_row);
     }
-''', sources=['src/encode.c'], extra_compile_args=['-std=gnu99'])
+''', sources=['src/encode.c'], extra_compile_args=['-std=gnu99'] if sys.platform != 'win32' else [])
 ffibuilder.cdef('''
     const char* create_hash_from_pixels(int x_components, int y_components,
                                        int width, int height, uint8_t* rgb,
