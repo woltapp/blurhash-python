@@ -23,22 +23,22 @@ const char *blurHashForPixels(int xComponents, int yComponents, int width, int h
 	if(yComponents < 1 || yComponents > 9) return NULL;
 
 #ifndef _MSC_VER
-	float factors[yComponents][xComponents][3];
+	float factors[yComponents * xComponents][3];
 #else
-	float factors[9][9][3];
+	float factors[9 * 9][3];
 #endif
 	memset(factors, 0, sizeof(factors));
 
 	for(int y = 0; y < yComponents; y++) {
 		for(int x = 0; x < xComponents; x++) {
 			float *factor = multiplyBasisFunction(x, y, width, height, rgb, bytesPerRow);
-			factors[y][x][0] = factor[0];
-			factors[y][x][1] = factor[1];
-			factors[y][x][2] = factor[2];
+			factors[y * xComponents + x][0] = factor[0];
+			factors[y * xComponents + x][1] = factor[1];
+			factors[y * xComponents + x][2] = factor[2];
 		}
 	}
 
-	float *dc = factors[0][0];
+	float *dc = factors[0];
 	float *ac = dc + 3;
 	int acCount = xComponents * yComponents - 1;
 	char *ptr = buffer;
