@@ -21,13 +21,13 @@ Create blurhash from image file
 import blurhash
 
 with open('image.jpg', 'r') as image_file:
-    hash = blurhash.encode(image_file, x_components=4, y_components=3)
+    hash = blurhash.encode(image_file, components_x=4, components_y=3)
 ```
 You can also pass file name as parameter to the function
 ```python
 import blurhash
 
-hash = blurhash.encode('image.jpg', x_components=4, y_components=3)
+hash = blurhash.encode('image.jpg', components_x=4, components_y=3)
 ```
 `y_components` and `x_components` parameters adjust the amount of
 vertical and horizontal AC components in hashed image. Both parameters must
