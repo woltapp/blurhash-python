@@ -42,7 +42,7 @@ def encode(image_file, x_components, y_components):
 
     return _ffi.string(result).decode()
 
-def decode(blurhash, width, height, punch, mode = 'RGB'):
+def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
 
     if not mode in _pixel_modes:
         raise ValueError("Invalid value for argument mode, must be either 'RGB' or 'RGBA'")
