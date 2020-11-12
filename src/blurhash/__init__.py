@@ -48,7 +48,6 @@ def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
         raise ValueError("Invalid value for argument mode, must be either 'RGB' or 'RGBA'")
 
     channels = _pixel_modes[mode]
-
     blurhash_str = _ffi.new('char[]', bytes(blurhash, "utf-8"))
 
     if not _lib.is_valid_blurhash(blurhash_str) :
@@ -67,9 +66,7 @@ def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
 
     #garbage collection of pixel buffer
     pixels = _ffi.gc(pixels, _lib.free_pixel_array)
-
     pixels_buffer = _ffi.buffer(pixels, width * height * channels)
-
     image = Image.frombuffer(mode, (width, height), pixels_buffer)
 
     return image
