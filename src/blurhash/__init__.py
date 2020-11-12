@@ -58,15 +58,16 @@ def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
     punch_int = _ffi.cast('int', punch)
     channels_int = _ffi.cast('int', channels)
 
-    pixels = _lib.create_pixels_from_blurhash(blurhash_str, width_int, height_int,
-                                    punch_int, channels)
-    
-    if pixels == _ffi.NULL :
+    pixel_array = _ffi.new('uint8_t[]', width * height * channels)
+
+    result = _lib.create_pixels_from_blurhash(blurhash_str, width_int, height_int,
+                                    punch_int, channels, pixel_array)
+
+    if result == -1 :
         raise Exception("Failed to decode blurhash {}".format(blurhash))
 
     #garbage collection of pixel buffer
-    pixels = _ffi.gc(pixels, _lib.free_pixel_array)
-    pixels_buffer = _ffi.buffer(pixels, width * height * channels)
+    pixels_buffer = _ffi.buffer(pixel_array, width * height * channels)
     image = Image.frombuffer(mode, (width, height), pixels_buffer)
 
     return image
