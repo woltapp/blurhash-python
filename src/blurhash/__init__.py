@@ -66,7 +66,6 @@ def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
     if result == -1 :
         raise Exception("Failed to decode blurhash {}".format(blurhash))
 
-    #garbage collection of pixel buffer
     pixels_buffer = _ffi.buffer(pixel_array, width * height * channels)
     image = Image.frombuffer(mode, (width, height), pixels_buffer)
 
