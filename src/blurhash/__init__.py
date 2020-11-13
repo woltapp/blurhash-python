@@ -13,11 +13,6 @@ from ._version import version as __version__
 
 __all__ = 'encode', 'decode', 'is_valid_blurhash', 'DecodeModes', 'BlurhashDecodeError', '__version__'
 
-_pixel_modes = {
-    "RGB" : 3,
-    "RGBA" : 4
-}
-
 class PixelMode(Enum):
     RGB = 3
     RGBA = 4
