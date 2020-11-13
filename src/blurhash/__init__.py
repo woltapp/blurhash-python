@@ -11,7 +11,7 @@ from ._functions import ffi as _ffi, lib as _lib
 from ._version import version as __version__
 
 
-__all__ = 'encode', 'decode', 'is_valid_blurhash', 'DecodeModes', 'BlurhashDecodeError', '__version__'
+__all__ = 'encode', 'decode', 'is_valid_blurhash', 'PixelMode', 'BlurhashDecodeError', '__version__'
 
 class PixelMode(Enum):
     RGB = 3
