@@ -5,17 +5,30 @@ from itertools import chain
 from PIL import Image
 
 from six.moves import zip
+from enum import Enum
 
 from ._functions import ffi as _ffi, lib as _lib
 from ._version import version as __version__
 
 
-__all__ = 'encode', 'decode', '__version__',
+__all__ = 'encode', 'decode', 'is_valid_blurhash', 'DecodeModes', 'BlurhashDecodeError', '__version__'
 
 _pixel_modes = {
     "RGB" : 3,
     "RGBA" : 4
 }
+
+class PixelMode(Enum):
+    RGB = 3
+    RGBA = 4
+
+class BlurhashDecodeError(Exception) :
+
+    def __init__(self, blurhash):
+        self.blurhash = blurhash
+
+    def __str__(self):
+        return "Failed to decode blurhash {}".format(self.blurhash)
 
 
 def encode(image_file, x_components, y_components):
@@ -42,12 +55,21 @@ def encode(image_file, x_components, y_components):
 
     return _ffi.string(result).decode()
 
-def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
+def decode(blurhash, width, height, punch = 1, mode = PixelMode.RGB):
 
-    if not mode in _pixel_modes:
-        raise ValueError("Invalid value for argument mode, must be either 'RGB' or 'RGBA'")
+    if width <= 0 or type(width) != int:
+        raise ValueError("Argument width={} is not a valid positive integer (must be > 0).".format(width))
 
-    channels = _pixel_modes[mode]
+    if height <= 0 or type(height) != int:
+        raise ValueError("Argument height={} is not a valid positive integer (must be > 0).".format(height))
+
+    if punch < 1 or type(punch) != int:
+        raise ValueError("Argument punch={} is not a valid positive integer (must be >= 1).".format(punch))
+
+    if not isinstance(mode, PixelMode):
+        raise ValueError("Argument 'mode' must be of type {} but got {}".format(PixelMode, type(mode)))
+
+    channels = mode.value
     blurhash_str = _ffi.new('char[]', bytes(blurhash, "utf-8"))
 
     if not _lib.is_valid_blurhash(blurhash_str) :
@@ -64,10 +86,10 @@ def decode(blurhash, width, height, punch = 1, mode = 'RGBA'):
                                     punch_int, channels, pixel_array)
 
     if result == -1 :
-        raise Exception("Failed to decode blurhash {}".format(blurhash))
+        raise BlurhashDecodeError(blurhash)
 
     pixels_buffer = _ffi.buffer(pixel_array, width * height * channels)
-    image = Image.frombuffer(mode, (width, height), pixels_buffer)
+    image = Image.frombuffer(mode.name, (width, height), pixels_buffer)
 
     return image
 
