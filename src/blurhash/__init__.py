@@ -11,13 +11,16 @@ from ._functions import ffi as _ffi, lib as _lib
 from ._version import version as __version__
 
 
-__all__ = 'encode', 'decode', 'is_valid_blurhash', 'PixelMode', 'BlurhashDecodeError', '__version__'
+__all__ = 'encode', 'decode', 'is_valid_blurhash', 'PixelMode', \
+          'BlurhashDecodeError', '__version__'
+
 
 class PixelMode(Enum):
     RGB = 3
     RGBA = 4
 
-class BlurhashDecodeError(Exception) :
+
+class BlurhashDecodeError(Exception):
 
     def __init__(self, blurhash):
         self.blurhash = blurhash
@@ -50,24 +53,37 @@ def encode(image_file, x_components, y_components):
 
     return _ffi.string(result).decode()
 
-def decode(blurhash, width, height, punch = 1, mode = PixelMode.RGB):
+
+def decode(blurhash, width, height, punch=1, mode=PixelMode.RGB):
 
     if width <= 0 or type(width) != int:
-        raise ValueError("Argument width={} is not a valid positive integer (must be > 0).".format(width))
+        raise ValueError(
+          """Argument width={} is not a valid positive integer
+          (must be > 0).""".format(width)
+        )
 
     if height <= 0 or type(height) != int:
-        raise ValueError("Argument height={} is not a valid positive integer (must be > 0).".format(height))
+        raise ValueError(
+          """Argument height={} is not a valid positive integer
+           (must be > 0).""".format(height)
+        )
 
     if punch < 1 or type(punch) != int:
-        raise ValueError("Argument punch={} is not a valid positive integer (must be >= 1).".format(punch))
+        raise ValueError(
+          """Argument punch={} is not a valid positive integer
+          (must be >= 1).""".format(punch)
+        )
 
     if not isinstance(mode, PixelMode):
-        raise ValueError("Argument 'mode' must be of type {} but got {}".format(PixelMode, type(mode)))
+        raise ValueError(
+          """Argument 'mode' must be of type {}
+          but got {}""".format(PixelMode, type(mode))
+        )
 
     channels = mode.value
     blurhash_str = _ffi.new('char[]', bytes(blurhash, "utf-8"))
 
-    if not _lib.is_valid_blurhash(blurhash_str) :
+    if not _lib.is_valid_blurhash(blurhash_str):
         raise ValueError("{} is not a valid blurhash".format(blurhash))
 
     width_int = _ffi.cast('int', width)
@@ -77,10 +93,12 @@ def decode(blurhash, width, height, punch = 1, mode = PixelMode.RGB):
 
     pixel_array = _ffi.new('uint8_t[]', width * height * channels)
 
-    result = _lib.create_pixels_from_blurhash(blurhash_str, width_int, height_int,
-                                    punch_int, channels, pixel_array)
+    result = _lib.create_pixels_from_blurhash(blurhash_str,
+                                              width_int, height_int,
+                                              punch_int, channels_int,
+                                              pixel_array)
 
-    if result == -1 :
+    if result == -1:
         raise BlurhashDecodeError(blurhash)
 
     pixels_buffer = _ffi.buffer(pixel_array, width * height * channels)
@@ -88,7 +106,8 @@ def decode(blurhash, width, height, punch = 1, mode = PixelMode.RGB):
 
     return image
 
-def is_valid_blurhash(blurhash) :
+
+def is_valid_blurhash(blurhash):
 
     blurhash_str = _ffi.new('char[]', bytes(blurhash, 'utf-8'))
     return bool(_lib.is_valid_blurhash(blurhash_str))
