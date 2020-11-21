@@ -58,26 +58,26 @@ def decode(blurhash, width, height, punch=1, mode=PixelMode.RGB):
 
     if width <= 0 or type(width) != int:
         raise ValueError(
-          """Argument width={} is not a valid positive integer
-          (must be > 0).""".format(width)
+          "Argument width={} is not a valid positive integer"
+          " (must be > 0).".format(width)
         )
 
     if height <= 0 or type(height) != int:
         raise ValueError(
-          """Argument height={} is not a valid positive integer
-           (must be > 0).""".format(height)
+          "Argument height={} is not a valid positive integer"
+          " (must be > 0).".format(height)
         )
 
     if punch < 1 or type(punch) != int:
         raise ValueError(
-          """Argument punch={} is not a valid positive integer
-          (must be >= 1).""".format(punch)
+          "Argument punch={} is not a valid positive integer"
+          " (must be >= 1).".format(punch)
         )
 
     if not isinstance(mode, PixelMode):
         raise ValueError(
-          """Argument 'mode' must be of type {}
-          but got {}""".format(PixelMode, type(mode))
+          "Argument 'mode' must be of type {}"
+          " but got {}".format(PixelMode, type(mode))
         )
 
     channels = mode.value
