@@ -6,6 +6,7 @@ import sys
 
 ffibuilder = cffi.FFI()
 ffibuilder.set_source('blurhash._functions', '''
+    #include "common.h"
 
     const char* blurHashForPixels(int x_components, int y_components,
                                   int width, int height,
@@ -34,6 +35,7 @@ ffibuilder.set_source('blurhash._functions', '''
         return isValidBlurhash(blurhash);
     }
 ''', sources=['src/encode.c', 'src/decode.c'],
+        include_dirs=['src/'],
         extra_compile_args=['-std=gnu99'] if sys.platform != 'win32' else []
     )
 
