@@ -9,4 +9,7 @@ function docker-run {
 
 docker-run manylinux1_x86_64 ./build.sh
 docker-run manylinux2010_x86_64 ./build.sh
+docker-run manylinux2014_x86_64 ./build.sh
 docker-run manylinux1_i686 linux32 ./build.sh
+docker-run manylinux2010_i686 linux32 ./build.sh
+docker-run manylinux2014_i686 linux32 ./build.sh
