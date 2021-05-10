@@ -6,6 +6,8 @@ import sys
 
 ffibuilder = cffi.FFI()
 ffibuilder.set_source('blurhash._functions', '''
+    #include <stdbool.h>
+
     #include "common.h"
 
     const char* blurHashForPixels(int x_components, int y_components,
@@ -15,6 +17,8 @@ ffibuilder.set_source('blurhash._functions', '''
     int decodeToArray(const char* blurhash, int width, int height,
                       int punch, int n_channels,
                       uint8_t * pixel_array);
+
+    bool isValidBlurhash(const char* blurhash);
 
 
     const char* create_hash_from_pixels(int x_components, int y_components,
