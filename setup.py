@@ -27,7 +27,6 @@ setup(
     package_dir={'': 'src'},
     install_requires=[
         'cffi',
-        'Pillow',
         'six',
     ],
     setup_requires=[
