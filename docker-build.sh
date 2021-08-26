@@ -7,9 +7,5 @@ function docker-run {
         -u "$(id -u):$(id -g)" "quay.io/pypa/$1" "${@:2}"
 }
 
-docker-run manylinux1_x86_64 ./build.sh
-docker-run manylinux2010_x86_64 ./build.sh
-docker-run manylinux2014_x86_64 ./build.sh
-docker-run manylinux1_i686 linux32 ./build.sh
-docker-run manylinux2010_i686 linux32 ./build.sh
-docker-run manylinux2014_i686 linux32 ./build.sh
+docker-run manylinux_2_24_x86_64 ./build.sh
+docker-run manylinux_2_24_i686 linux32 ./build.sh
