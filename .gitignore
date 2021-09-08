@@ -102,3 +102,6 @@ ENV/
 
 # setuptools-scm
 /src/blurhash/_version.py
+
+# Pipenv
+Pipfile.lock
