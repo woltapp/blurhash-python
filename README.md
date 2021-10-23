@@ -20,7 +20,7 @@ Create blurhash from image file
 ```python
 import blurhash
 
-with open('image.jpg', 'r') as image_file:
+with open('image.jpg', 'rb') as image_file:
     hash = blurhash.encode(image_file, x_components=4, y_components=3)
 ```
 You can also pass file name as parameter to the function
