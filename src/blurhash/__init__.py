@@ -29,8 +29,11 @@ class BlurhashDecodeError(Exception):
         return "Failed to decode blurhash {}".format(self.blurhash)
 
 
-def encode(image_file, x_components, y_components):
-    image = Image.open(image_file).convert('RGB')
+def encode(image, x_components, y_components):
+    if not isinstance(image, Image.Image):
+        image = Image.open(image)
+    if image.mode != 'RGB':
+        image = image.convert('RGB')
     red_band = image.getdata(band=0)
     green_band = image.getdata(band=1)
     blue_band = image.getdata(band=2)

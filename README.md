@@ -23,6 +23,15 @@ import blurhash
 with open('image.jpg', 'rb') as image_file:
     hash = blurhash.encode(image_file, x_components=4, y_components=3)
 ```
+Alternatively, scale the image to produce a faster hash, and create a blurhash from the in-memory image directly
+```python
+import blurhash
+from PIL import Image
+
+with Image.open('image.jpg') as image:
+  image.thumbnail(( 100, 100 ))
+  hash = blurhash.encode(image, x_components=4, y_components=3)
+```
 You can also pass file name as parameter to the function
 ```python
 import blurhash
