@@ -7,8 +7,10 @@ trap "rm -rf '$TMPDIST' '$USERBASE'" EXIT
 
 pybins=(/opt/python/cp{37,38,39,310,311}-cp*/bin)
 
+SRCDIST="$(ls -vr dist/blurhash-python-*.tar.gz | head -n1)"
+
 for pybin in ${pybins[@]}; do
-    "${pybin}/pip" wheel --no-cache-dir -w "$TMPDIST" ".[testing]"
+    "${pybin}/pip" wheel --no-cache-dir -w "$TMPDIST" "$SRCDIST[testing]"
 done
 
 for whl in "$TMPDIST"/blurhash_python*.whl; do
