@@ -5,7 +5,7 @@ TMPDIST="$(mktemp -d)"
 USERBASE="$(mktemp -d)"
 trap "rm -rf '$TMPDIST' '$USERBASE'" EXIT
 
-for pybin in /opt/python/cp{37,38,39,310}-cp*/bin; do
+for pybin in /opt/python/cp{37,38,39,310,311}-cp*/bin; do
     "${pybin}/pip" wheel --no-cache-dir -w "$TMPDIST" ".[testing]"
 done
 
@@ -16,7 +16,7 @@ done
 
 ORIGPATH="$PATH"
 
-for pybin in /opt/python/cp{37,38,39,310}-cp*/bin; do
+for pybin in /opt/python/cp{37,38,39,310,311}-cp*/bin; do
     userbindir="$USERBASE/${pybin#/opt/python/}"
     export PYTHONUSERBASE="${userbindir%/bin}"
     export PATH="$ORIGPATH:$userbindir"
