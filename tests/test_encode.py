@@ -2,12 +2,20 @@ from __future__ import absolute_import
 
 import pytest
 
+from PIL import Image
 from blurhash import encode
 
 
 def test_encode_file():
     with open('tests/pic2.png', 'rb') as image_file:
         result = encode(image_file, 4, 3)
+
+    assert result == 'LlMF%n00%#MwS|WCWEM{R*bbWBbH'
+
+
+def test_encode_pil_image():
+    with Image.open('tests/pic2.png') as image:
+        result = encode(image, 4, 3)
 
     assert result == 'LlMF%n00%#MwS|WCWEM{R*bbWBbH'
 
