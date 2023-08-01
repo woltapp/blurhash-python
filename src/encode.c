@@ -9,7 +9,13 @@
 #define M_PI 3.14159265358979323846
 #endif
 
-static float *multiplyBasisFunction(int xComponent, int yComponent, int width, int height, uint8_t *rgb, size_t bytesPerRow);
+struct RGB {
+	float r;
+	float g;
+	float b;
+};
+
+static struct RGB multiplyBasisFunction(int xComponent, int yComponent, int width, int height, uint8_t *rgb, size_t bytesPerRow);
 static char *encode_int(int value, int length, char *destination);
 
 static int encodeDC(float r, float g, float b);
@@ -30,10 +36,10 @@ const char *blurHashForPixels(int xComponents, int yComponents, int width, int h
 
 	for(int y = 0; y < yComponents; y++) {
 		for(int x = 0; x < xComponents; x++) {
-			float *factor = multiplyBasisFunction(x, y, width, height, rgb, bytesPerRow);
-			factors[y * xComponents + x][0] = factor[0];
-			factors[y * xComponents + x][1] = factor[1];
-			factors[y * xComponents + x][2] = factor[2];
+			struct RGB factor = multiplyBasisFunction(x, y, width, height, rgb, bytesPerRow);
+			factors[y * xComponents + x][0] = factor.r;
+			factors[y * xComponents + x][1] = factor.g;
+			factors[y * xComponents + x][2] = factor.b;
 		}
 	}
 
@@ -71,25 +77,24 @@ const char *blurHashForPixels(int xComponents, int yComponents, int width, int h
 	return buffer;
 }
 
-static float *multiplyBasisFunction(int xComponent, int yComponent, int width, int height, uint8_t *rgb, size_t bytesPerRow) {
-	float r = 0, g = 0, b = 0;
+static struct RGB multiplyBasisFunction(int xComponent, int yComponent, int width, int height, uint8_t *rgb, size_t bytesPerRow) {
+	struct RGB result = { 0, 0, 0 };
 	float normalisation = (xComponent == 0 && yComponent == 0) ? 1 : 2;
 
 	for(int y = 0; y < height; y++) {
 		for(int x = 0; x < width; x++) {
 			float basis = cosf(M_PI * xComponent * x / width) * cosf(M_PI * yComponent * y / height);
-			r += basis * sRGBToLinear(rgb[3 * x + 0 + y * bytesPerRow]);
-			g += basis * sRGBToLinear(rgb[3 * x + 1 + y * bytesPerRow]);
-			b += basis * sRGBToLinear(rgb[3 * x + 2 + y * bytesPerRow]);
+			result.r += basis * sRGBToLinear(rgb[3 * x + 0 + y * bytesPerRow]);
+			result.g += basis * sRGBToLinear(rgb[3 * x + 1 + y * bytesPerRow]);
+			result.b += basis * sRGBToLinear(rgb[3 * x + 2 + y * bytesPerRow]);
 		}
 	}
 
 	float scale = normalisation / (width * height);
 
-	static float result[3];
-	result[0] = r * scale;
-	result[1] = g * scale;
-	result[2] = b * scale;
+	result.r *= scale;
+	result.g *= scale;
+	result.b *= scale;
 
 	return result;
 }
