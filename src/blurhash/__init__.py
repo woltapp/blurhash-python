@@ -47,9 +47,17 @@ def encode(image, x_components, y_components):
     height = _ffi.cast('int', height)
     x_components = _ffi.cast('int', x_components)
     y_components = _ffi.cast('int', y_components)
+    destination = _ffi.new("char[]", 2 + 4 + (9 * 9 - 1) * 2 + 1)
 
-    result = _lib.create_hash_from_pixels(x_components, y_components, width,
-                                          height, rgb, bytes_per_row)
+    result = _lib.create_hash_from_pixels(
+        x_components,
+        y_components,
+        width,
+        height,
+        rgb,
+        bytes_per_row,
+        destination,
+    )
 
     if result == _ffi.NULL:
         raise ValueError('Invalid x_components or y_components')

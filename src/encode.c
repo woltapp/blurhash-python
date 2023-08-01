@@ -21,9 +21,7 @@ static char *encode_int(int value, int length, char *destination);
 static int encodeDC(float r, float g, float b);
 static int encodeAC(float r, float g, float b, float maximumValue);
 
-const char *blurHashForPixels(int xComponents, int yComponents, int width, int height, uint8_t *rgb, size_t bytesPerRow) {
-	static char buffer[2 + 4 + (9 * 9 - 1) * 2 + 1];
-
+const char *blurHashForPixels(int xComponents, int yComponents, int width, int height, uint8_t *rgb, size_t bytesPerRow, char *destination) {
 	if(xComponents < 1 || xComponents > 9) return NULL;
 	if(yComponents < 1 || yComponents > 9) return NULL;
 
@@ -46,7 +44,7 @@ const char *blurHashForPixels(int xComponents, int yComponents, int width, int h
 	float *dc = factors[0];
 	float *ac = dc + 3;
 	int acCount = xComponents * yComponents - 1;
-	char *ptr = buffer;
+	char *ptr = destination;
 
 	int sizeFlag = (xComponents - 1) + (yComponents - 1) * 9;
 	ptr = encode_int(sizeFlag, 1, ptr);
@@ -74,7 +72,7 @@ const char *blurHashForPixels(int xComponents, int yComponents, int width, int h
 
 	*ptr = 0;
 
-	return buffer;
+	return destination;
 }
 
 static struct RGB multiplyBasisFunction(int xComponent, int yComponent, int width, int height, uint8_t *rgb, size_t bytesPerRow) {

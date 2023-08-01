@@ -12,7 +12,8 @@ ffibuilder.set_source('blurhash._functions', '''
 
     const char* blurHashForPixels(int x_components, int y_components,
                                   int width, int height,
-                                  uint8_t * rgb, size_t bytesPerRow);
+                                  uint8_t * rgb, size_t bytesPerRow,
+                                  char* destination);
 
     int decodeToArray(const char* blurhash, int width, int height,
                       int punch, int n_channels,
@@ -23,9 +24,10 @@ ffibuilder.set_source('blurhash._functions', '''
 
     const char* create_hash_from_pixels(int x_components, int y_components,
                                         int width, int height, uint8_t* rgb,
-                                        size_t bytes_per_row) {
+                                        size_t bytes_per_row,
+                                        char* destination) {
         return blurHashForPixels(x_components, y_components, width, height,
-                                 rgb, bytes_per_row);
+                                 rgb, bytes_per_row, destination);
     }
 
     int create_pixels_from_blurhash(const char * blurhash, int width,
@@ -46,7 +48,8 @@ ffibuilder.set_source('blurhash._functions', '''
 ffibuilder.cdef('''
     const char* create_hash_from_pixels(int x_components, int y_components,
                                         int width, int height, uint8_t* rgb,
-                                        size_t bytes_per_row);
+                                        size_t bytes_per_row,
+                                        char* destination);
     int create_pixels_from_blurhash(const char * blurhash, int width,
                                     int height, int punch, int nChannels,
                                     uint8_t * pixel_array);
