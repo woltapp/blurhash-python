@@ -5,7 +5,7 @@ TMPDIST="$(mktemp -d)"
 USERBASE="$(mktemp -d)"
 trap "rm -rf '$TMPDIST' '$USERBASE'" EXIT
 
-pybins=(/opt/python/cp{38,39,310,311}-cp*/bin)
+pybins=(/opt/python/cp{38,39,310,311,312}-cp*/bin)
 
 SRCDIST="$(ls -vr dist/blurhash-python-*.tar.gz | head -n1)"
 
