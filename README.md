@@ -49,6 +49,11 @@ Install development dependencies and package in editable mode
 $ uv sync
 ```
 
+Install pre-commit hooks
+```
+$ uvx pre-commit install
+```
+
 Tests
 -----
 Run test suite with pytest
