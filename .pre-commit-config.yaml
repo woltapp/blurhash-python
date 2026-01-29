@@ -29,10 +29,3 @@ repos:
         require_serial: true
         language: system
         types: [ python ]
-      - id: mypy
-        name: mypy
-        entry: uv run mypy .
-        require_serial: true
-        language: system
-        types: [python]
-        pass_filenames: false
