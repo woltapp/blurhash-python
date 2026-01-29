@@ -15,11 +15,11 @@ jobs:
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
 
-      - name: Set up Python
-        run: uv python install 3.14
-
-      - uses: pre-commit/action@v3.0.1
+      - name: Run pre-commit
+        run: uvx pre-commit run --all-files
 
   test:
     name: Test (Python ${{ matrix.python-version }}, ${{ matrix.os }})
@@ -40,12 +40,11 @@ jobs:
 
       - name: Set up uv
         uses: astral-sh/setup-uv@v5
-
-      - name: Set up Python ${{ matrix.python-version }}
-        run: uv python install ${{ matrix.python-version }}
+        with:
+          python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: uv pip install --system setuptools wheel setuptools-scm cffi .[testing]
+        run: uv sync --extra testing
 
       - name: Run tests
         run: uv run pytest -v
