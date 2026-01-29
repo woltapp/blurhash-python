@@ -37,6 +37,7 @@ testing = ["pytest"]
 [dependency-groups]
 dev = [
     "pytest",
+    "ruff>=0.14.14",
     "tox",
 ]
 
