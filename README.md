@@ -9,9 +9,9 @@ Install blurhash with pip
 ```
 $ pip install blurhash-python
 ```
-or pipenv
+or uv
 ```
-$ pipenv install blurhash-python
+$ uv add blurhash-python
 ```
 
 Usage
@@ -44,18 +44,18 @@ be `>= 1` and `<= 9`.
 
 Development
 -----------
-Install development requirements and package in editable mode
+Install development dependencies and package in editable mode
 ```
-$ pipenv install --dev
+$ uv sync
 ```
 
 Tests
 -----
-Run test suite with `pytest` in virtual environment
+Run test suite with pytest
 ```
-$ pytest
+$ uv run pytest
 ```
-Use `tox` to run test suite against all supported python versions
+Use tox to run test suite against all supported Python versions (3.10-3.14)
 ```
-$ tox
+$ uv run tox
 ```
