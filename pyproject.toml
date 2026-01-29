@@ -1,3 +1,9 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools", "wheel", "cffi", "setuptools-scm"]
 build-backend = "setuptools.build_meta:__legacy__"
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "tox",
+]
