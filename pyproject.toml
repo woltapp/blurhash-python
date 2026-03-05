@@ -1,3 +1,49 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta:__legacy__"
+requires = ["setuptools", "wheel", "cffi", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blurhash-python"
+description = "BlurHash encoder implementation for Python"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Atte Lautanala", email = "atte.lautanala@wolt.com" }
+]
+requires-python = ">=3.10"
+dynamic = ["version"]
+dependencies = [
+    "cffi",
+    "Pillow",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+[project.urls]
+Homepage = "https://blurha.sh"
+Repository = "https://github.com/woltapp/blurhash-python"
+
+[project.optional-dependencies]
+testing = ["pytest"]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "ruff>=0.14.14",
+    "tox",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["blurhash"]
+
+[tool.setuptools_scm]
+write_to = "src/blurhash/_version.py"

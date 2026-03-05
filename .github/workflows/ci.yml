@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  pre-commit:
+    name: Pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+
+      - name: Run pre-commit
+        run: uvx pre-commit run --all-files
+
+  test:
+    name: Test (Python ${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - os: macos-latest
+            python-version: "3.14"
+          - os: windows-latest
+            python-version: "3.14"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv sync --extra testing
+
+      - name: Run tests
+        run: uv run pytest -v
+
+  build:
+    name: Build & verify package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.14"
+
+      - name: Build package
+        run: uv build
+
+      - name: Verify wheel installs and works
+        run: |
+          # Create a fresh project to test installation
+          cd /tmp
+          uv init test-install
+          cd test-install
+          uv add ${{ github.workspace }}/dist/*.whl
+
+          # Test that it imports and basic functionality works
+          uv run python -c "
+          import blurhash
+          print(f'Version: {blurhash.__version__}')
+
+          # Test encode with a simple image
+          from PIL import Image
+          img = Image.new('RGB', (100, 100), color='red')
+          hash = blurhash.encode(img, 4, 3)
+          print(f'Encoded: {hash}')
+          assert len(hash) > 0
+
+          # Test decode
+          decoded = blurhash.decode(hash, 50, 50)
+          assert decoded.size == (50, 50)
+          print('Decode: OK')
+
+          # Test is_valid_blurhash
+          assert blurhash.is_valid_blurhash(hash)
+          print('All checks passed!')
+          "
